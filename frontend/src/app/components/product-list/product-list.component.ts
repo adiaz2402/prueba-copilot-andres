@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-list',
@@ -35,10 +36,22 @@ export class ProductListComponent implements OnInit {
   }
 
   addProduct() {
-    if (!this.newProduct.name || !this.newProduct.price) return;
+    if (!this.newProduct.name || this.newProduct.name.trim() === '') {
+      Swal.fire('', 'El nombre del producto es obligatorio.', 'warning');
+      return;
+    }
+    if (
+      this.newProduct.price === undefined ||
+      this.newProduct.price === null ||
+      isNaN(Number(this.newProduct.price)) ||
+      Number(this.newProduct.price) <= 0
+    ) {
+      Swal.fire('', 'El precio debe ser un número mayor a 0.', 'warning');
+      return;
+    }
     this.productService.addProduct({
       name: this.newProduct.name!,
-      price: this.newProduct.price!
+      price: Number(this.newProduct.price!)
     }).subscribe({
       next: (product) => {
         this.products.push(product);
@@ -56,11 +69,23 @@ export class ProductListComponent implements OnInit {
   }
 
   saveEdit(product: Product) {
-    if (!this.editedProduct.name || !this.editedProduct.price) return;
+    if (!this.editedProduct.name || this.editedProduct.name.trim() === '') {
+      Swal.fire('', 'El nombre del producto es obligatorio.', 'warning');
+      return;
+    }
+    if (
+      this.editedProduct.price === undefined ||
+      this.editedProduct.price === null ||
+      isNaN(Number(this.editedProduct.price)) ||
+      Number(this.editedProduct.price) <= 0
+    ) {
+      Swal.fire('', 'El precio debe ser un número mayor a 0.', 'warning');
+      return;
+    }
     const updatedProduct: Product = {
       id: product.id,
       name: this.editedProduct.name!,
-      price: this.editedProduct.price!
+      price: Number(this.editedProduct.price!)
     };
     this.productService.updateProduct(updatedProduct).subscribe({
       next: (updated) => {
@@ -79,12 +104,27 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this.productService.deleteProduct(id).subscribe({
-      next: () => {
-        this.products = this.products.filter(p => p.id !== id);
-      },
-      error: () => {
-        this.error = 'Failed to delete product.';
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ffd600',
+      cancelButtonColor: '#222',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productService.deleteProduct(id).subscribe({
+          next: () => {
+            this.products = this.products.filter(p => p.id !== id);
+            Swal.fire('Eliminado', 'El producto ha sido eliminado.', 'success');
+          },
+          error: () => {
+            this.error = 'Failed to delete product.';
+            Swal.fire('Error', 'No se pudo eliminar el producto.', 'error');
+          }
+        });
       }
     });
   }
