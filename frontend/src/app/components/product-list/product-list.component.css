@@ -1,0 +1,150 @@
+body {
+  background: linear-gradient(135deg, #ffe259 0%, #ffa751 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fffbe6;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 32px 40px 40px 40px;
+  border: 2px solid #ffd600;
+}
+
+h1 {
+  color: #222;
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.product-list {
+  margin-bottom: 32px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fffde7;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 12px 20px;
+  border-left: 6px solid #ffd600;
+  font-size: 1.1rem;
+}
+
+.product-actions {
+  display: flex;
+  gap: 8px;
+}
+.product-actions button {
+  background: #ffd600;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.product-actions button.delete {
+  background: #222;
+  color: #ffd600;
+}
+.product-actions button:hover {
+  background: #ffe259;
+}
+
+form {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  align-items: center;
+  width: 100%;
+}
+.form-input {
+  padding: 8px 12px;
+  border: 1px solid #ffd600;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #fffde7;
+  color: #222;
+  min-width: 120px;
+  box-sizing: border-box;
+  width: 100%;
+}
+form input[type="text"], form input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #ffd600;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #fffde7;
+  color: #222;
+  min-width: 120px;
+  box-sizing: border-box;
+  width: 100%;
+}
+form button[type="submit"] {
+  background: #ffd600;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 18px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+form button[type="submit"]:hover {
+  background: #ffe259;
+}
+.edit-input {
+  width: 48%;
+  margin-right: 8px;
+}
+.edit-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+.edit-row input[type="text"], .edit-row input[type="number"] {
+  min-width: 120px;
+  width: 100%;
+}
+.edit-row .product-actions {
+  gap: 8px;
+}
+button[type="submit"] {
+  background: #ffd600;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 18px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button[type="submit"]:hover {
+  background: #ffe259;
+}
+.error {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.loading {
+  color: #222;
+  text-align: center;
+  margin-bottom: 16px;
+}
+ul { list-style: none; padding: 0; }
+li { margin-bottom: 4px; }
